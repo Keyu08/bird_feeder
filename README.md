@@ -39,7 +39,7 @@ The dataset used to retrain: https://www.kaggle.com/datasets/otherkirby/rhode-is
 ## Running this project
 **Initiating VS Code**
 
-1. Click on the small green icon at the bottom left of your screen to access the SSH menu.
+1. Click on the small blue icon at the bottom left of your screen to access the SSH menu.
 2. Select + Add New SSH Host to add a new host.
 3. Enter ssh nvidia@x.x.x.x, replacing x.x.x.x.x with the IP address you usually use in Putty or terminal to connect to the Nano.
 4. Pick the first configuration file.
@@ -69,8 +69,9 @@ The dataset used to retrain: https://www.kaggle.com/datasets/otherkirby/rhode-is
 1. Exit the Docker container by pressing Ctrl + D in the terminal.
 2. On your Nano, navigate to jetson-inference/python/training/classification.
 3. Check if the model exists on the Nano by executing ls models/bird_classification/. You should see a file named resnet18.onnx.
-4. Set the NET and DATASET variables: NET=models/ANY_NAME_YOU_WANT DATASET=data/waste_detect
-5. Run this command to see how the model works on an image from the test folder: imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/recyclable/PICK_AN_IMAGE.jpg PICK_A_NAME_FOR_THE_IMAGE.jpg. Keep in mind that you are able to change recyclable to any waste you want, you are able to pick any test image by changing PICK_AN_IMAGE.jpg and are able to change the name of the output image name by changing PICK_A_NAME_FOR_THE_IMAGE.jpg. 6. Launch Visual Studio Code to view the image output (located in the classification folder). Remember to replace ANY_NAME_YOU_WANT with the name you gave your model while training.
+4. Set the NET and DATASET variables: NET=models/bird_classification DATASET=data/bird_classification
+5. Run this command to see how the model works on an image from the test folder: python3 imagenet_mod.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/PICK_A_CLASS/PICK_AN_IMAGE.jpg PICK_A_NAME_FOR_THE_IMAGE.jpg. Keep in mind that you are able to choose the bird class by replacing PICK_A_CLASS with the class, you are able to pick any test image of that class by changing PICK_AN_IMAGE.jpg, and are able to change the name of the output image name by changing PICK_A_NAME_FOR_THE_IMAGE.jpg.
+6. To view the image output, find and open PICK_A_NAME_FOR_THE_IMAGE.jpg (or the changed output image name)
 
 https://youtu.be/6ufqk7kHM4k Video Link
 
