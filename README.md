@@ -50,31 +50,31 @@ The dataset used to retrain: https://www.kaggle.com/datasets/otherkirby/rhode-is
 9. Select Open Folder and navigate to jetson-inference. Input your password again if required.
 10. Click Yes, I trust the authors to access and start working on your projects in this directory.
 ## Preparing the Dataset
-1. Navigate to jetson-inference/python/training/classification/data.
+1. Navigate to `jetson-inference/python/training/classification/data`.
 2. Put the downloaded dataset into the Nano using Filezilla.
 3. Extract the dataset ZIP file.
 
 **Check if the following steps are already done or not. If not, follow those steps:**
-1. Inside jetson-inference/python/training/classification/data, create a new folder called bird_classification. Inside bird_classification, add three folders: test, train, val. Also add a file named labels.txt.
-2. In the train directory inside bird_classification, create 21 folders for the 21 sets of data for each bird class (the 21 sets are above, in the algorithm part).
+1. Inside `jetson-inference/python/training/classification/data`, create a new folder called `bird_classification`. Inside `bird_classification`, add three folders: `test`, `train`, `val`. Also add a file named `labels.txt`.
+2. In the train directory inside `bird_classification`, create 21 folders for the 21 sets of data for each bird class (the 21 sets are above, in the algorithm part).
 3. Copy these folders to the val and test directories.
 4. Distribute (If not already organized) the images from your ZIP file among these folders, with 80% in the train folder, 10% in the val folder, and 10% in the test folder for each bird type.
 ## Running the Docker Container
-1. Go to the jetson-inference folder and run ./docker/run.sh.
-2. Once inside the Docker container, navigate to jetson-inference/python/training/classification.
+1. Go to the jetson-inference folder and run `./docker/run.sh`.
+2. Once inside the Docker container, navigate to `jetson-inference/python/training/classification`.
 ## Training the Neural Network
-1. Run the training script with the following command: python3 train.py --model-dir=models/bird_classification data/bird_classification --epoch=1. You can change the number of epoch as you wish. This process may take quite some time. 
-2. You can stop the process at any time using Ctl+C and resume it later using the --resume and --epoch-start flags.
+1. Run the training script with the following command: `python3 train.py --model-dir=models/bird_classification data/bird_classification --epoch=1`. You can change the number of epoch as you wish. This process may take quite some time. 
+2. You can stop the process at any time using Ctl+C and resume it later using the `--resume` and `--epoch-start` flags.
 ## Export the model in ONNX format
-1. Once you finished training, make sure you are still in the docker container and in jetson-inference/python/training/classification.
-2. Run this script: python3 onnx_export.py --model-dir=models/bird_classification
+1. Once you finished training, make sure you are still in the docker container and in `jetson-inference/python/training/classification`.
+2. Run this script: `python3 onnx_export.py --model-dir=models/bird_classification`
 ## Testing the Trained Network on Images
 1. Exit the Docker container by pressing Ctrl + D in the terminal.
-2. On your Nano, navigate to jetson-inference/python/training/classification.
-3. Check if the model exists on the Nano by executing ls models/bird_classification/. You should see a file named resnet18.onnx.
-4. Set the NET and DATASET variables: NET=models/bird_classification DATASET=data/bird_classification
-5. Run this command to see how the model works on an image from the test folder: python3 imagenet_mod.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/PICK_A_CLASS/PICK_AN_IMAGE.jpg PICK_A_NAME_FOR_THE_IMAGE.jpg. Keep in mind that you are able to choose the bird class by replacing PICK_A_CLASS with the class, you are able to pick any test image of that class by changing PICK_AN_IMAGE.jpg, and are able to change the name of the output image name by changing PICK_A_NAME_FOR_THE_IMAGE.jpg.
-6. To view the image output, find and open PICK_A_NAME_FOR_THE_IMAGE.jpg (or the changed output image name)
+2. On your Nano, navigate to `jetson-inference/python/training/classification`.
+3. Check if the model exists on the Nano by executing `ls models/bird_classification/`. You should see a file named resnet18.onnx.
+4. Set the NET and DATASET variables: `NET=models/bird_classification` `DATASET=data/bird_classification`
+5. Run this command to see how the model works on an image from the test folder: `python3 imagenet_mod.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/PICK_A_CLASS/PICK_AN_IMAGE.jpg PICK_A_NAME_FOR_THE_IMAGE.jpg`. Keep in mind that you are able to choose the bird class by replacing `PICK_A_CLASS` with the class, you are able to pick any test image of that class by changing `PICK_AN_IMAGE.jpg`, and are able to change the name of the output image name by changing `PICK_A_NAME_FOR_THE_IMAGE.jpg`.
+6. To view the image output, find and open `PICK_A_NAME_FOR_THE_IMAGE.jpg` (or the changed output image name)
 
 https://youtu.be/6ufqk7kHM4k Video Link
 
