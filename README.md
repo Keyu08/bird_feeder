@@ -51,11 +51,14 @@ The dataset used to retrain: https://www.kaggle.com/datasets/otherkirby/rhode-is
 10. Click Yes, I trust the authors to access and start working on your projects in this directory.
 ## Preparing the Dataset
 1. Navigate to jetson-inference/python/training/classification/data.
-2. Extract the dataset ZIP file.
-3. Inside jetson-inference/python/training/classification/data, create a new folder called bird_classification. Inside bird_classification, add three folders: test, train, val. Also add a file named labels.txt.
-4. In the train directory inside bird_classification, create 21 folders for the 21 sets of data for each bird class (the 21 sets are above, in the algorithm part).
-5. Copy these folders to the val and test directories.
-6. Distribute the images from your ZIP file among these folders, with 80% in the train folder, 10% in the val folder, and 10% in the test folder for each bird type.
+2. Put the downloaded dataset into the Nano using Filezilla.
+3. Extract the dataset ZIP file.
+
+**Check if the following steps are already done or not. If not, follow those steps:**
+1. Inside jetson-inference/python/training/classification/data, create a new folder called bird_classification. Inside bird_classification, add three folders: test, train, val. Also add a file named labels.txt.
+2. In the train directory inside bird_classification, create 21 folders for the 21 sets of data for each bird class (the 21 sets are above, in the algorithm part).
+3. Copy these folders to the val and test directories.
+4. Distribute (If not already organized) the images from your ZIP file among these folders, with 80% in the train folder, 10% in the val folder, and 10% in the test folder for each bird type.
 ## Running the Docker Container
 1. Go to the jetson-inference folder and run ./docker/run.sh.
 2. Once inside the Docker container, navigate to jetson-inference/python/training/classification.
