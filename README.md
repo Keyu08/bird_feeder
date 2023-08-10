@@ -34,6 +34,8 @@ The 21 sets of data are (bird classes):
 20. Tufted_Titmouse
 21. White_Breasted_Nuthatch
 
+The dataset used to retrain: https://www.kaggle.com/datasets/otherkirby/rhode-island-backyard-birds
+
 ## Running this project
 **Initiating VS Code**
 
@@ -51,19 +53,22 @@ The 21 sets of data are (bird classes):
 1. Navigate to jetson-inference/python/training/classification/data.
 2. Extract the dataset ZIP file.
 3. Inside jetson-inference/python/training/classification/data, create a new folder called bird_classification. Inside bird_classification, add three folders: test, train, val. Also add a file named labels.txt.
-4. In the train directory inside waste_detect, create 3 folders named recyclable, organic, and trash.
+4. In the train directory inside bird_classification, create 21 folders for the 21 sets of data for each bird class (the 21 sets are above, in the algorithm part).
 5. Copy these folders to the val and test directories.
-6. Distribute the images from your ZIP file among these folders, with 80% in the train folder, 10% in the val folder, and 10% in the test folder for each waste type. Unfortunately, this will be a manual task and may take some time.
-7. Running the Docker Container
-8. Go to the jetson-inference folder and run ./docker/run.sh.
-9. Once inside the Docker container, navigate to jetson-inference/python/training/classification.
+6. Distribute the images from your ZIP file among these folders, with 80% in the train folder, 10% in the val folder, and 10% in the test folder for each bird type.
+## Running the Docker Container
+1. Go to the jetson-inference folder and run ./docker/run.sh.
+2. Once inside the Docker container, navigate to jetson-inference/python/training/classification.
 ## Training the Neural Network
-1. Run the training script with the following command: python3 train.py --model-dir=models/ANY_NAME_YOU_WANT --batch-size=4 --workers=4 --epoch=1 data/waste_detect Replace ANY_NAME_YOU_WANT with your desired output file name. This process may take quite some time.
+1. Run the training script with the following command: python3 train.py --model-dir=models/bird_classification data/bird_classification --epoch=1. You can change the number of epoch as you wish. This process may take quite some time. 
 2. You can stop the process at any time using Ctl+C and resume it later using the --resume and --epoch-start flags.
+## Export the model in ONNX format
+1. Once you finished training, make sure you are still in the docker container and in jetson-inference/python/training/classification.
+2. Run this script: python3 onnx_export.py --model-dir=models/bird_classification
 ## Testing the Trained Network on Images
 1. Exit the Docker container by pressing Ctrl + D in the terminal.
 2. On your Nano, navigate to jetson-inference/python/training/classification.
-3. Check if the model exists on the Nano by executing ls models/ANY_NAME_YOU_WANT/. You should see a file named resnet18.onnx.
+3. Check if the model exists on the Nano by executing ls models/bird_classification/. You should see a file named resnet18.onnx.
 4. Set the NET and DATASET variables: NET=models/ANY_NAME_YOU_WANT DATASET=data/waste_detect
 5. Run this command to see how the model works on an image from the test folder: imagenet.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/recyclable/PICK_AN_IMAGE.jpg PICK_A_NAME_FOR_THE_IMAGE.jpg. Keep in mind that you are able to change recyclable to any waste you want, you are able to pick any test image by changing PICK_AN_IMAGE.jpg and are able to change the name of the output image name by changing PICK_A_NAME_FOR_THE_IMAGE.jpg. 6. Launch Visual Studio Code to view the image output (located in the classification folder). Remember to replace ANY_NAME_YOU_WANT with the name you gave your model while training.
 
