@@ -76,6 +76,6 @@ The dataset used to retrain: https://www.kaggle.com/datasets/otherkirby/rhode-is
 5. Run this command to see how the model works on an image from the test folder: `python3 imagenet_mod.py --model=$NET/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=$DATASET/labels.txt $DATASET/test/PICK_A_CLASS/PICK_AN_IMAGE.jpg PICK_A_NAME_FOR_THE_IMAGE.jpg`. Keep in mind that you are able to choose the bird class by replacing `PICK_A_CLASS` with the class, you are able to pick any test image of that class by changing `PICK_AN_IMAGE.jpg`, and are able to change the name of the output image name by changing `PICK_A_NAME_FOR_THE_IMAGE.jpg`.
 6. To view the image output, find and open `PICK_A_NAME_FOR_THE_IMAGE.jpg` (or the changed output image name)
 
-https://youtu.be/6ufqk7kHM4k Video Link
+https://www.youtube.com/watch?v=KrMoDG8ALUM Video Link
 
-[View a video explanation here](video link)
+
